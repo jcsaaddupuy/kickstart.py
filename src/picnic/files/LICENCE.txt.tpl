@@ -1,2 +1,2 @@
-$PACKAGE_NAME - Licence
+@PACKAGE_NAME - Licence
 ========================

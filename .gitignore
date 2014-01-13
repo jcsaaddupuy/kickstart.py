@@ -42,3 +42,8 @@ nosetests.xml
 # Pipy codes
 
 .pypirc
+
+
+# Vim files
+.swp
+.swo

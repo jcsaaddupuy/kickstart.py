@@ -3,7 +3,7 @@ ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
-setup(name='$PACKAGE_NAME',
+setup(name='@PACKAGE_NAME',
       version='0.1',
       author='',
     description='',
