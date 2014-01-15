@@ -16,7 +16,7 @@ setup(name='{{options.package_name}}',
 {% if options.with_cli %}
         entry_points = { 
             'console_scripts': [
-                '{{options.package_name}} = {{options.package_name}}:main',
+                '{{options.package_name}} = bin.{{options.package_name}}:main',
                 ]
             },
 {% endif %}

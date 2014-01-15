@@ -23,7 +23,7 @@ setup(name='picnic',
 
         include_package_data = True,
         package_data = {
-            '' : [ 'files/*' ]
+            '' : [ 'files/*.tpl', 'files/**/*.tpl' ]
             }
 
         )	
