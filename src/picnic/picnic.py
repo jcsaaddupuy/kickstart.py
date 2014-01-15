@@ -17,6 +17,7 @@ class PicnicOptions(object):
         self.package_name = ""
         self.with_cli = False
         self.with_tests = False
+        self.options = '0.0.0.0'
 
 class Picnic(object):
     def __init__(self, options):
@@ -93,6 +94,7 @@ def main():
     options.module_path = name
     options.package_name = name
     options.with_cli = True
+    options.version = '0.0.1-test'
 
     p = Picnic(options)
     p.create_module()
