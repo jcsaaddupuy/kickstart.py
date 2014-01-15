@@ -1,2 +1,2 @@
 #!/usr/bin/env python
-""" @PACKAGE_NAME """
+""" {{ options.package_name }} """

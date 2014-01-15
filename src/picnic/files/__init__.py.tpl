@@ -1,5 +1,5 @@
-""" @PACKAGE_NAME/__init__.py """
+""" {{ options.package_name }}/__init__.py """
 
 __all__ = []
 
-from @PACKAGE_NAME import *
+from {{ options.package_name }} import *

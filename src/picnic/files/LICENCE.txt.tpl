@@ -1,2 +1,2 @@
-@PACKAGE_NAME - Licence
+{{ options.package_name }} - Licence
 ========================
