@@ -139,7 +139,7 @@ class Picnic(object):
 
 
 def main():
-    parser = optparse.OptionParser("usage: %prog module_name")
+    parser = optparse.OptionParser("usage: %prog -n module_name [options]")
 
     parser.add_option("-d", "--debug", dest="debug", action="store_true", default=False, help="Enable debug output")
     parser.add_option("-q", "--quiet", dest="quiet", action="store_true", default=False, help="Disable output")
@@ -155,6 +155,8 @@ def main():
     parser.add_option("-f", "--force", dest="force", action="store_true", default=False, help="Will override existing files. Use with care.")
 
     (options, args) = parser.parse_args()
+    if options.package_name is None :
+        parser.error("You must provide a package name. See --help")
 
     p = Picnic(options)
     p.create_module()
