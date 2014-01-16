@@ -2,6 +2,7 @@
 
 import shutil
 import os
+import sys
 
 from jinja2 import Environment, PackageLoader, FileSystemLoader
 import sh
@@ -20,6 +21,7 @@ class PicnicOptions(object):
         self.with_tests = False
         self.with_git = False
         self.version = '0.0.0.0'
+        self.py_version = sys.version_info.major
 
 class Picnic(object):
     def __init__(self, options):
@@ -39,7 +41,6 @@ class Picnic(object):
     def write_file(self, filename, content=''):
         """ Creates a new file and initializes it with the given content."""
         with open(filename, 'w') as f:
-            print filename
             f.write(content)
 
     def create_folders(self, folders):

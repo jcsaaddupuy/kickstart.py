@@ -1,4 +1,4 @@
-#!/usr/bin/python
+#!/usr/bin/env python{{ options.py_version }}
 from {{ options.package_name }} import *
 
 def main():

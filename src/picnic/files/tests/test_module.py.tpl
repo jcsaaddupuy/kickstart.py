@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python{{ options.py_version }}
 import unittest
 {% set module_name = options.package_name %}
 
