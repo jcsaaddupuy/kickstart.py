@@ -17,7 +17,7 @@ class PicnicOptions(object):
         self.package_name = ""
         self.with_cli = False
         self.with_tests = False
-        self.options = '0.0.0.0'
+        self.version = '0.0.0.0'
 
 class Picnic(object):
     def __init__(self, options):
@@ -75,12 +75,20 @@ class Picnic(object):
         self.create_folder(cli_folder)
         self.write_template( cli_folder, { "bin/main.py" : self.options.package_name+".py"}, {"options" : self.options})
         self.write_template( cli_folder, { "bin/__init__.py" : "__init__.py"}, {"options" : self.options})
+    def create_tests_layout(self):
+        """ Create module layout for command line entrypoint """
+        cli_folder = os.path.join(self.options.package_name, "src", "tests")
+        self.create_folder(cli_folder)
+        self.write_template( cli_folder, { "tests/__init__.py" : "__init__.py"}, {"options" : self.options})
+        self.write_template( cli_folder, { "tests/test_module.py" : "test_"+self.options.package_name+".py"}, {"options" : self.options})
 
     def create_module(self):
         """ Class entry point """
         self.create_basic_layout()
         if self.options.with_cli:
             self.create_cli_layout()
+        if self.options.with_tests:
+            self.create_tests_layout()
 
 
 def main():
@@ -94,7 +102,8 @@ def main():
     options.module_path = name
     options.package_name = name
     options.with_cli = True
-    options.version = '0.0.1-test'
+    options.with_tests = True
+#    options.version = '0.0.1-test'
 
     p = Picnic(options)
     p.create_module()

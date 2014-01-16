@@ -20,4 +20,7 @@ setup(name='{{options.package_name}}',
                 ]
             }
 {% endif %}
+{% if options.with_tests %}
+       , test_suite = 'tests.suite'
+{% endif %}
         )	
