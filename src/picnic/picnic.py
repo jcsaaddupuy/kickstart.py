@@ -153,8 +153,8 @@ def main():
     parser.add_option("-n", "--name", dest="package_name", action="store", default=None, help="Package name")
 
     parser.add_option("-f", "--force", dest="force", action="store_true", default=False, help="Will override existing files. Use with care.")
+
     (options, args) = parser.parse_args()
-    print options, args
 
     p = Picnic(options)
     p.create_module()
