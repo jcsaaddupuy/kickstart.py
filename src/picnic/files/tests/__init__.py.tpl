@@ -1,4 +1,6 @@
 """ {{ options.package_name }}/__init__.py """
+# -*- coding: utf-8 -*
+
 import test_{{ options.package_name }}
 
 def suite():

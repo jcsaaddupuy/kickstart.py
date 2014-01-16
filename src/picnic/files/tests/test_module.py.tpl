@@ -1,4 +1,6 @@
 #!/usr/bin/env python{{ options.py_version }}
+# -*- coding: utf-8 -*
+
 import unittest
 {% set module_name = options.package_name %}
 
