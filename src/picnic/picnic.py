@@ -124,7 +124,7 @@ class Picnic(object):
         self.logger.info("Initial commit")
         try:
             repo.commit(m='Initial commit')
-        except Exception, e:
+        except (Exception) as e:
             self.logger.error(e.message)
 
 
