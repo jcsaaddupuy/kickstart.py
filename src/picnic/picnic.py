@@ -29,8 +29,6 @@ class Picnic(object):
                 os.path.join(self.options.package_name, "src"),
                 os.path.join(self.options.package_name, "src", self.options.package_name),
                 ]
-        if self.options.with_tests :
-            self.basic_layout_folders.append(os.path.join(self.options.package_name, "src", "tests"))
 
         # root files
         self.basic_layout_templates= [ "README.rst", "MANIFEST.in", "LICENCE.txt", "setup.py", "ez_setup.py"]
