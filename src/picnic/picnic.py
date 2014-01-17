@@ -78,7 +78,7 @@ class Picnic(object):
 
         src_path = os.path.join(self.options.package_name, "src", self.options.package_name)
         self.write_template( src_path, ["__init__.py"], {"options" : self.options})
-        self.write_template( src_path, { "module.py" : self.options.package_name+".py"}, {"options" : self.options})
+        self.write_template( src_path, { "package_name.py" : self.options.package_name+".py"}, {"options" : self.options})
 
     def create_cli_layout(self):
         self.logger.info("Creating CLI layout")
@@ -94,7 +94,7 @@ class Picnic(object):
         cli_folder = os.path.join(self.options.package_name, "src", "tests")
         self.create_folder(cli_folder)
         self.write_template( cli_folder, { "tests/__init__.py" : "__init__.py"}, {"options" : self.options})
-        self.write_template( cli_folder, { "tests/test_module.py" : "test_"+self.options.package_name+".py"}, {"options" : self.options})
+        self.write_template( cli_folder, { "tests/test_package_name.py" : "test_"+self.options.package_name+".py"}, {"options" : self.options})
 
     def create_git_layout(self):
         """ Create module layout for GIT and initialize the repo """
