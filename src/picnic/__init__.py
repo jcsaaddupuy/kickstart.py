@@ -1,1 +1,1 @@
-from picnic import *
+from .picnic import *

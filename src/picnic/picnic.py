@@ -47,7 +47,7 @@ class Picnic(object):
     def write_file(self, filename, content=''):
         """ Creates a new file and initializes it with the given content."""
         if self.options.force or not os.path.exists(filename):
-            with open(filename, 'w') as f:
+            with open(filename, 'wb') as f:
                 f.write(content)
 
     def create_folders(self, folders):
@@ -150,7 +150,7 @@ def main():
     parser.add_option("-g", "--git", dest="with_git", action="store_true", default=False, help="Enable git repo creation")
     parser.add_option("-c", "--cli", dest="with_cli", action="store_true", default=False, help="Create CLI layout")
 
-    parser.add_option("-p", "--pyversion", dest="py_version", action="store", default=sys.version_info.major, help="Default python version for #!")
+    parser.add_option("-p", "--pyversion", dest="py_version", action="store", default=sys.version_info.major, help="Python version for #!/usr/bin/env python#. Default value : current python major version (%s)" % sys.version_info.major)
     parser.add_option("-n", "--name", dest="package_name", action="store", default=None, help="Package name")
 
     parser.add_option("-f", "--force", dest="force", action="store_true", default=False, help="Will override existing files. Use with care.")
