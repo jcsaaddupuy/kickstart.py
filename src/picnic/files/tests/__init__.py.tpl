@@ -1,12 +1,13 @@
 """ {{ options.package_name }}/__init__.py """
 # -*- coding: utf-8 -*
 
-from . import test_{{ options.package_name }}
+{% set module_name = options.package_name.lower() %}
+from . import test_{{ module_name }}
 
 def suite():
     import unittest
     suite = unittest.TestSuite()
-    suite.addTests(test_{{ options.package_name }}.suite())
+    suite.addTests(test_{{ module_name }}.suite())
 
     return suite
 

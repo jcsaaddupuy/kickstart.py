@@ -2,7 +2,7 @@
 # -*- coding: utf-8 -*
 
 import unittest
-{% set module_name = options.package_name %}
+{% set module_name = options.package_name.lower() %}
 
 from {{ module_name }} import * 
 

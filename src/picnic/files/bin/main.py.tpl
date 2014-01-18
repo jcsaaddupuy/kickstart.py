@@ -1,5 +1,5 @@
 #!/usr/bin/env python{{ options.py_version }}
-from {{ options.package_name }} import *
+from {{ options.package_name.lower() }} import *
 
 def main():
     pass

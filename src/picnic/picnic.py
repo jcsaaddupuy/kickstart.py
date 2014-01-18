@@ -31,7 +31,7 @@ class Picnic(object):
         # the directory creation is equivalent to mkdir -p
         self.basic_layout_folders = [self.pkg_dest_folder,
                 os.path.join(self.pkg_dest_folder, "src"),
-                os.path.join(self.pkg_dest_folder, "src", self.options.package_name),
+                os.path.join(self.pkg_dest_folder, "src", self.options.package_name.lower()),
                 ]
 
         # root files
@@ -79,16 +79,16 @@ class Picnic(object):
         self.create_folders(self.basic_layout_folders)
         self.write_template(self.pkg_dest_folder, self.basic_layout_templates, {"options" : self.options})
 
-        src_path = os.path.join(self.pkg_dest_folder, "src", self.options.package_name)
+        src_path = os.path.join(self.pkg_dest_folder, "src", self.options.package_name.lower())
         self.write_template( src_path, ["__init__.py"], {"options" : self.options})
-        self.write_template( src_path, { "package_name.py" : self.options.package_name+".py"}, {"options" : self.options})
+        self.write_template( src_path, { "package_name.py" : self.options.package_name.lower()+".py"}, {"options" : self.options})
 
     def create_cli_layout(self):
         self.logger.info("Creating CLI layout")
         """ Create module layout for command line entrypoint """
         cli_folder = os.path.join(self.pkg_dest_folder, "src", "bin")
         self.create_folder(cli_folder)
-        self.write_template( cli_folder, { "bin/main.py" : self.options.package_name+".py"}, {"options" : self.options})
+        self.write_template( cli_folder, { "bin/main.py" : self.options.package_name.lower()+".py"}, {"options" : self.options})
         self.write_template( cli_folder, { "bin/__init__.py" : "__init__.py"}, {"options" : self.options})
 
     def create_tests_layout(self):
@@ -97,7 +97,7 @@ class Picnic(object):
         cli_folder = os.path.join(self.pkg_dest_folder, "src", "tests")
         self.create_folder(cli_folder)
         self.write_template( cli_folder, { "tests/__init__.py" : "__init__.py"}, {"options" : self.options})
-        self.write_template( cli_folder, { "tests/test_package_name.py" : "test_"+self.options.package_name+".py"}, {"options" : self.options})
+        self.write_template( cli_folder, { "tests/test_package_name.py" : "test_"+self.options.package_name.lower()+".py"}, {"options" : self.options})
 
     def create_git_layout(self):
         """ Create module layout for GIT and initialize the repo """
