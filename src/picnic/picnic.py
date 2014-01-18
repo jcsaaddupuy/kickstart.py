@@ -46,9 +46,8 @@ class Picnic(object):
 
     def write_file(self, filename, content=''):
         """ Creates a new file and initializes it with the given content."""
-        if self.options.force or not os.path.exists(filename):
-            with open(filename, 'wb') as f:
-                f.write(content)
+        with open(filename, 'wb') as f:
+            f.write(content)
 
     def create_folders(self, folders):
         """ Create module folders """
@@ -105,13 +104,13 @@ class Picnic(object):
         module_folder = self.pkg_dest_folder
 
         git_folder = os.path.join(module_folder, ".git")
-        if self.options.force and os.path.exists(git_folder):
+        if os.path.exists(git_folder):
             self.logger.debug("Removing old git files")
             shutil.rmtree(git_folder)
 
         self.write_template( module_folder, { "git/gitignore" : ".gitignore"}, {"options" : self.options})
         git = sh.git
-        
+
         self.logger.info("Git init")
         git.init(_cwd=module_folder)
 
@@ -130,13 +129,16 @@ class Picnic(object):
 
     def create_module(self):
         """ Class entry point """
-        self.create_basic_layout()
-        if self.options.with_cli:
-            self.create_cli_layout()
-        if self.options.with_tests:
-            self.create_tests_layout()
-        if self.options.with_git:
-            self.create_git_layout()
+        if os.path.exists(self.pkg_dest_folder) and not self.options.force:
+            self.logger.warn("%s already exists. use -f to overwrite.")
+        else:
+            self.create_basic_layout()
+            if self.options.with_cli:
+                self.create_cli_layout()
+            if self.options.with_tests:
+                self.create_tests_layout()
+            if self.options.with_git:
+                self.create_git_layout()
 
 
 def main():
