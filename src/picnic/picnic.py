@@ -84,11 +84,10 @@ class Picnic(object):
             self.create_folder(folder)
 
     def create_folder(self, folder):
-        try:
-            self.logger.debug("Creating folder %s", folder)
+        self.logger.debug("Creating folder %s", folder)
+        if not os.path.exists(folder):
             os.makedirs(folder)
-        except:
-            pass
+
 
     def write_template(self, copy_to, templates, values = {}):
         for tpl in templates:
@@ -147,9 +146,9 @@ class Picnic(object):
         module_folder = self.pkg_dest_folder
 
         git_folder = os.path.join(module_folder, ".git")
-        if os.path.exists(git_folder):
-            self.logger.debug("Removing old git files")
-            shutil.rmtree(git_folder)
+        #if os.path.exists(git_folder):
+            #self.logger.debug("Removing old git files")
+            #shutil.rmtree(git_folder)
 
         self.write_template( module_folder, { "git/gitignore" : ".gitignore"}, {"options" : self.options})
         git = sh.git
