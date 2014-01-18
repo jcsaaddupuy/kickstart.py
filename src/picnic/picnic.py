@@ -12,30 +12,45 @@ import optparse
 
 import logging
 
-module_path = os.path.dirname(os.path.realpath(__file__))
-files_path = os.path.join(module_path, 'files')
 
-loader = FileSystemLoader(files_path)
-env = Environment(loader=loader)
+class TemplateLoader(object):
+    """ Shortcut to jinja2 templates accessor"""
+    def __init__(self, root_path, logger):
+        self.logger = logger
+        self.logger.debug( "Initializing loader with path %s", root_path)
+        self.loader = FileSystemLoader(root_path)
+        self.env = Environment(loader=self.loader)
 
+    def get_template(self, tpl_name):
+        """ Shortcut to env.get_template"""
+        return self.env.get_template(tpl_name)
+
+class TemplatesLoader(object):
+    """  Shortcut to handle systemwide/local templates """
+    def __init__(self, root_path, local_path, logger):
+        self.logger = logger
+        # systemwide templates loader
+        self.root_loader = TemplateLoader(root_path, logger)
+        # local template loader
+        self.local_loader = TemplateLoader(local_path, logger)
+
+    def get_template(self, tpl_name):
+        """ Shortcut to env.get_template, with systemwide/local location"""
+        try:
+            return self.local_loader.get_template(tpl_name)
+        except:
+            self.logger.debug("Could not load templates from local installation")
+            return self.root_loader.get_template(tpl_name)
 
 class Picnic(object):
+    """ Picnic easy python module layout creator"""
     def __init__(self, options):
         self.options = options
         self.init_logger()
+        self.init_paths()
+        self.init_templates_loader()
         # TODO : support folder location to be passed as an argument
-        self.pkg_dest_folder = os.path.join(self.options.package_name)
 
-        # BASIC LAYOUT
-        # could have beeen done with only one instruction
-        # the directory creation is equivalent to mkdir -p
-        self.basic_layout_folders = [self.pkg_dest_folder,
-                os.path.join(self.pkg_dest_folder, "src"),
-                os.path.join(self.pkg_dest_folder, "src", self.options.package_name.lower()),
-                ]
-
-        # root files
-        self.basic_layout_templates= [ "README.rst", "MANIFEST.in", "LICENCE.txt", "setup.py", "ez_setup.py"]
 
     def init_logger(self):
         if self.options.debug :
@@ -43,6 +58,20 @@ class Picnic(object):
         elif not self.options.quiet:
             logging.basicConfig(level = logging.INFO)
         self.logger = logging.getLogger(__name__)
+
+    def init_paths(self):
+        # package destination location
+        self.pkg_dest_folder = os.path.join(self.options.package_name)
+        # get systemwide templates location
+        module_path = os.path.dirname(os.path.realpath(__file__))
+        self.root_files_path = os.path.join(module_path, 'files')
+        # get local templates location
+        home_dir = os.path.expanduser("~")
+        self.local_files_path = os.path.join(home_dir, ".picnic", "files")
+    
+    def init_templates_loader(self):
+        # initialize templates loader
+        self.loader = TemplatesLoader(self.root_files_path, self.local_files_path, self.logger)
 
     def write_file(self, filename, content=''):
         """ Creates a new file and initializes it with the given content."""
@@ -69,12 +98,26 @@ class Picnic(object):
             else:
                 outfile = tpl
             self.logger.debug("Copying %s to %s", tpl_fullname, outfile)
-            template = env.get_template(tpl_fullname).render(values, loader = loader).encode('utf-8')
+            template = self.loader.get_template(tpl_fullname).render(values).encode('utf-8')
             self.write_file(os.path.join(copy_to, outfile), template)
 
     def create_basic_layout(self):
         """Create base module layout """
+        if self.pkg_dest_folder is None :
+            raise Exception("Package destination folder was None")
+        # BASIC LAYOUT
+        # could have beeen done with only one instruction
+        # the directory creation is equivalent to mkdir -p
         self.logger.info("Creating basic layout")
+
+        self.basic_layout_folders = [self.pkg_dest_folder,
+                os.path.join(self.pkg_dest_folder, "src"),
+                os.path.join(self.pkg_dest_folder, "src", self.options.package_name.lower()),
+                ]
+
+        # root files
+        self.basic_layout_templates= [ "README.rst", "MANIFEST.in", "LICENCE.txt", "setup.py", "ez_setup.py"]
+        # Create layout
         self.create_folders(self.basic_layout_folders)
         self.write_template(self.pkg_dest_folder, self.basic_layout_templates, {"options" : self.options})
 
@@ -126,11 +169,21 @@ class Picnic(object):
         except (Exception) as e:
             self.logger.error(e.message)
 
+    def install_templates(self):
+        """ Install templates in user home folder"""
+        if os.path.exists(self.local_files_path) and not self.options.force:
+            self.logger.warn("%s already exists. use -f to overwrite.", self.local_files_path)
+        else:
+            self.logger.info("Installing templates to %s.", self.local_files_path)
+            shutil.rmtree(self.local_files_path)
+            shutil.copytree(self.root_files_path, self.local_files_path)
+            self.logger.info("Done")
+
 
     def create_module(self):
         """ Class entry point """
         if os.path.exists(self.pkg_dest_folder) and not self.options.force:
-            self.logger.warn("%s already exists. use -f to overwrite.")
+            self.logger.warn("%s already exists. use -f to overwrite.", self.pkg_dest_folder)
         else:
             self.create_basic_layout()
             if self.options.with_cli:
@@ -155,14 +208,18 @@ def main():
     parser.add_option("-p", "--pyversion", dest="py_version", action="store", default=sys.version_info.major, help="Python version for #!/usr/bin/env python#. Default value : current python major version (%s)" % sys.version_info.major)
     parser.add_option("-n", "--name", dest="package_name", action="store", default=None, help="Package name")
 
+    parser.add_option("-i", "--install", dest="install", action="store_true", default=False, help="Install templates in home folder")
     parser.add_option("-f", "--force", dest="force", action="store_true", default=False, help="Will override existing files. Use with care.")
 
     (options, args) = parser.parse_args()
-    if options.package_name is None :
-        parser.error("You must provide a package name. See --help")
 
     p = Picnic(options)
-    p.create_module()
+    if options.install == True:
+        p.install_templates()
+    else:
+        if options.package_name is None :
+            parser.error("You must provide a package name. See --help")
+        p.create_module()
 
 
 if __name__ == "__main__":
