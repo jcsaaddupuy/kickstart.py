@@ -38,28 +38,26 @@ Options
       -h, --help            show this help message and exit
       -d, --debug           Enable debug output
       -q, --quiet           Disable output
-      -v VERSION, --version=VERSION
-                            Module version
+      -v VERSION, --version=VERSION Module version
       -t, --tests           Create tests layout
       -g, --git             Enable git repo creation
       -c, --cli             Create CLI layout
-      -p PY_VERSION, --pyversion=PY_VERSION
-                            Python version for #!/usr/bin/env python#. Default
-                            value : current python major version (2)
-      -n PACKAGE_NAME, --name=PACKAGE_NAME
-                            Package name
+      -p PY_VERSION, --pyversion=PY_VERSION Python version for #!/usr/bin/env python#. Default value : current python major version (2 or 3)
+      -n PACKAGE_NAME, --name=PACKAGE_NAME Package name
       -i, --install         Install templates in home folder
       -f, --force           Will override existing files. Use with care.
 
 
 Examples
 --------
-To create a new module, with CLI, unitests and git, juste type : ::
+To create a new module, with CLI, unitests and git, juste type :
 
+::
      kickstart -t -c -g -n kick-test
 
-I will generate the folowing layout : ::
+I will generate the folowing layout : 
 
+::
     find MyModulename | grep -v git
      MyModulename
      MyModulename/README.rst
@@ -77,16 +75,18 @@ I will generate the folowing layout : ::
      MyModulename/LICENCE.txt
      MyModulename/MANIFEST.in
  
-You can then cd to you module folder and type : ::
-    
+You can then cd to you module folder and type :
+
+::
     # install it in dev mode
     python setup.py develop
     
     # run unitests
     python setup.py test
 
-By installing in dev mode, your module as automagically created the CLI entrypoint. You can then, in a terminal, type : ::
+By installing in dev mode, your module as automagically created the CLI entrypoint. You can then, in a terminal, type :
 
+::
     MyModulename
 
 Wich will run the file MyModulename/src/bin/mymodulename.py.
@@ -97,6 +97,7 @@ Installation and customization
 From the source
 ''''''''''''''''
 
+::
     git clone https://github.com/jcsaaddupuy/kickstart.py.git
     cd kickstart 
     sudo python setup.py install
@@ -105,16 +106,18 @@ From the source
 With pip
 ''''''''
 
-Just pip install it ::
+Just pip install it
 
+::
     sudo pip install kickstart
 
 
 Customization
 ''''''''''''''
 
-If you want to pimp the templates, you can install them locall in your home foler : ::
+If you want to pimp the templates, you can install them locall in your home foler :
 
+::
     kickstart -i
 
 All templates will be copied to ~/.kickstart/files/, wich you can edit freely to override defaults.
