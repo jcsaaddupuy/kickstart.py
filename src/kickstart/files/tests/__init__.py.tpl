@@ -2,12 +2,13 @@
 # -*- coding: utf-8 -*
 
 {% set module_name = options.package_name.lower() %}
-from . import test_{{ module_name }}
+from . import test_{{module_name}}
+
 
 def suite():
     import unittest
     suite = unittest.TestSuite()
-    suite.addTests(test_{{ module_name }}.suite())
+    suite.addTests(test_{{module_name}}.suite())
 
     return suite
 

@@ -3,4 +3,4 @@
 
 __all__ = []
 
-from .{{ options.package_name.lower() }} import *
+from .{{options.package_name.lower()}} import *
