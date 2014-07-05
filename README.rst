@@ -104,6 +104,12 @@ From the source
     sudo python setup.py install
 
 
+From pypi
+'''''''''
+
+Just pip install it : ::
+
+    pip install pyckstart --pre
 
 
 Customization
