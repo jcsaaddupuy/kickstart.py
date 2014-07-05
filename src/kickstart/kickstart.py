@@ -171,7 +171,8 @@ class Kickstart(object):
             self.logger.warn("%s already exists. use -f to overwrite.", self.local_files_path)
         else:
             self.logger.info("Installing templates to %s.", self.local_files_path)
-            shutil.rmtree(self.local_files_path)
+            if os.path.exists(self.local_files_path):
+                shutil.rmtree(self.local_files_path)
             shutil.copytree(self.root_files_path, self.local_files_path)
             self.logger.info("Done")
 
