@@ -115,7 +115,7 @@ class Kickstart(object):
                 ]
 
         # root files
-        self.basic_layout_templates= [ "README.rst", "MANIFEST.in", "LICENCE.txt", "setup.py", "ez_setup.py"]
+        self.basic_layout_templates= [ "README.rst", "MANIFEST.in", "LICENCE.txt", "setup.py"]
         # Create layout
         self.create_folders(self.basic_layout_folders)
         self.write_template(self.pkg_dest_folder, self.basic_layout_templates, {"options" : self.options})
