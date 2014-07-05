@@ -42,8 +42,8 @@ class TemplatesLoader(object):
             self.logger.debug("Could not load templates from local installation")
             return self.root_loader.get_template(tpl_name)
 
-class Kickstart(object):
-    """ Kickstart easy python module layout creator"""
+class Pyckstart(object):
+    """ Pyckstart easy python module layout creator"""
     def __init__(self, options):
         self.options = options
         self.init_logger()
@@ -67,7 +67,7 @@ class Kickstart(object):
         self.root_files_path = os.path.join(module_path, 'files')
         # get local templates location
         home_dir = os.path.expanduser("~")
-        self.local_files_path = os.path.join(home_dir, ".kickstart", "files")
+        self.local_files_path = os.path.join(home_dir, ".pyckstart", "files")
 
     def init_templates_loader(self):
         # initialize templates loader
@@ -210,7 +210,7 @@ def main():
 
     (options, args) = parser.parse_args()
 
-    p = Kickstart(options)
+    p = Pyckstart(options)
     if options.install == True:
         p.install_templates()
     else:

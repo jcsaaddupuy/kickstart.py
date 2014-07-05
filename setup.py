@@ -1,6 +1,6 @@
 from setuptools import setup, find_packages
 
-setup(name='kickstart',
+setup(name='pyckstart',
         version='0.0.1',
         author='Zulko 2013',
         description='Module for easy python modules creation',
@@ -14,7 +14,7 @@ setup(name='kickstart',
 
         entry_points = {
             'console_scripts': [
-                'kickstart = kickstart:main',
+                'pyckstart = pyckstart:main',
                 ]
             },
 
