@@ -146,9 +146,6 @@ class Picnic(object):
         module_folder = self.pkg_dest_folder
 
         git_folder = os.path.join(module_folder, ".git")
-        #if os.path.exists(git_folder):
-            #self.logger.debug("Removing old git files")
-            #shutil.rmtree(git_folder)
 
         self.write_template( module_folder, { "git/gitignore" : ".gitignore"}, {"options" : self.options})
         git = sh.git
