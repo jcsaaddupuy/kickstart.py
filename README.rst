@@ -5,7 +5,7 @@ Kickstart is a simple template engine for writing python modules, based on Jinja
 
 It can generate bases layout for simple python modules, with or without CLI, unitests, and git local repo initialization.
 
-It is a fork of _Picnic by _Zulko.
+It is a fork of Picnic_ by Zulko_.
 
 You open a console and in any folder you type ::
     
@@ -85,7 +85,7 @@ You can then cd to you module folder and type : ::
     # run unitests
     python setup.py test
 
-By installing in dev mode, your module as automagically created the CLI entrypoint. You can then, in a termina, type : ::
+By installing in dev mode, your module as automagically created the CLI entrypoint. You can then, in a terminal, type : ::
 
     MyModulename
 
@@ -97,7 +97,7 @@ Installation and customization
 From the source
 ''''''''''''''''
 
-    git clone git@github.com:jcsaaddupuy/kickstart.py.git
+    git clone https://github.com/jcsaaddupuy/kickstart.py.git
     cd kickstart 
     sudo python setup.py install
 
