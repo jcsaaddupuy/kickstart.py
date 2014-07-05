@@ -57,7 +57,7 @@ Examples
 --------
 To create a new module, with CLI, unitests and git, juste type : ::
 
-     kickstart -t -c -g -n kick-test
+     kickstart -t -c -g -n MyModulename
 
 I will generate the folowing layout : ::
 
