@@ -1,8 +1,8 @@
 from setuptools import setup, find_packages
 
 setup(name='pyckstart',
-        version='0.0.1',
-        author='Zulko 2013',
+        version='0.0.2',
+        author='Zulko 2013, Jc Saad-Dupuy 2014',
         description='Module for easy python modules creation',
         long_description=open('README.rst').read(),
         license='LICENSE.txt',
