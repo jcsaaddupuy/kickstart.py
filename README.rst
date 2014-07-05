@@ -97,7 +97,7 @@ Installation and customization
 From the source
 ''''''''''''''''
 
-    git clone https://github.com/jcsaaddupuy/pyckstart.py.git
+    git clone https://github.com/jcsaaddupuy/pyckstart.git
 
     cd pyckstart 
 
