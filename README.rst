@@ -79,9 +79,9 @@ I will generate the folowing layout : ::
      MyModulename/MANIFEST.in
  
 You can then cd to you module folder and type : ::
+
     # install it in dev mode
-    python setup.py develop
-    
+    python setup.py develop    
     # run unitests
     python setup.py test
 
