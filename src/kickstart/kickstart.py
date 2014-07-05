@@ -42,8 +42,8 @@ class TemplatesLoader(object):
             self.logger.debug("Could not load templates from local installation")
             return self.root_loader.get_template(tpl_name)
 
-class Picnic(object):
-    """ Picnic easy python module layout creator"""
+class Kickstart(object):
+    """ Kickstart easy python module layout creator"""
     def __init__(self, options):
         self.options = options
         self.init_logger()
@@ -67,8 +67,8 @@ class Picnic(object):
         self.root_files_path = os.path.join(module_path, 'files')
         # get local templates location
         home_dir = os.path.expanduser("~")
-        self.local_files_path = os.path.join(home_dir, ".picnic", "files")
-    
+        self.local_files_path = os.path.join(home_dir, ".kickstart", "files")
+
     def init_templates_loader(self):
         # initialize templates loader
         self.loader = TemplatesLoader(self.root_files_path, self.local_files_path, self.logger)
@@ -153,7 +153,7 @@ class Picnic(object):
         self.logger.info("Git init")
         git.init(_cwd=module_folder)
 
-        # get an repo object 
+        # get an repo object
         repo = git.bake(_cwd=module_folder)
         # add the module folder to git
         self.logger.info("Adding files")
@@ -209,7 +209,7 @@ def main():
 
     (options, args) = parser.parse_args()
 
-    p = Picnic(options)
+    p = Kickstart(options)
     if options.install == True:
         p.install_templates()
     else:

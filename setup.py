@@ -3,8 +3,8 @@ ez_setup.use_setuptools()
 
 from setuptools import setup, find_packages
 
-setup(name='picnic',
-        version='0.0.0.2',
+setup(name='kickstart',
+        version='0.0.1',
         author='Zulko 2013',
         description='Module for easy python modules creation',
         long_description=open('README.rst').read(),
@@ -15,9 +15,9 @@ setup(name='picnic',
         package_dir = {'':'src'},
         packages= find_packages('src', exclude='docs'),
 
-        entry_points = { 
+        entry_points = {
             'console_scripts': [
-                'picnic = picnic:main',
+                'kickstart = kickstart:main',
                 ]
             },
 
@@ -26,4 +26,4 @@ setup(name='picnic',
             '' : [ 'files/*.tpl', 'files/**/*.tpl' ]
             }
 
-        )	
+        )
