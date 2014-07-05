@@ -44,5 +44,5 @@ nosetests.xml
 
 
 # Vim files
-*.swp
-*.swo
+.swp
+.swo

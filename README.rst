@@ -1,44 +1,95 @@
-Picnic
-=======
+Kickstart
+=========
 
-Picnic is a simple template engine for writing python modules. You open a console and in any folder you type ::
+Kickstart is a simple template engine for writing python modules, based on Jinja2.
+
+It can generate bases layout for simple python modules, with or without CLI, unitests, and git local repo initialization.
+
+It is a fork of Picnic_ by Zulko_.
+
+You open a console and in any folder you type ::
     
-    picnic.py ModuleName
+    kickstart -n ModuleName
 
 and it will produce the following folder, with (almost ?) all the files you need. All there is left to do is write the actual code : ::
 
-    /ModuleName
-        /modulename
-            /__init__.py
-            /modulename.py # A file for the actual code
-        /setup.py
-        /README.rst
-        /LICENCE.txt
-        /MANIFEST.in 
-        /ez_setup.py # for Setuptools  
+    ~: find ModuleName 
+     ModuleName
+     ModuleName/README.rst
+     ModuleName/setup.py
+     ModuleName/src
+     ModuleName/src/modulename
+     ModuleName/src/modulename/modulename.py
+     ModuleName/src/modulename/__init__.py
+     ModuleName/LICENCE.txt
+     ModuleName/MANIFEST.in
 
-The created package is configured to work with Setuptools because Setuptools rocks.
 
+You can then cd to you module folder and type : ::
+
+    python setup.py develop
 
 
 Options
 --------
+    Usage: kickstart -n module_name [options]
 
-Two useful options are ``-git`` and ``-dev`` (the order doesn't matter): ::
-    
-    picnic.py ModuleName -git -dev
+    Options:
+      -h, --help            show this help message and exit
+      -d, --debug           Enable debug output
+      -q, --quiet           Disable output
+      -v VERSION, --version=VERSION
+                            Module version
+      -t, --tests           Create tests layout
+      -g, --git             Enable git repo creation
+      -c, --cli             Create CLI layout
+      -p PY_VERSION, --pyversion=PY_VERSION
+                            Python version for #!/usr/bin/env python#. Default
+                            value : current python major version (2)
+      -n PACKAGE_NAME, --name=PACKAGE_NAME
+                            Package name
+      -i, --install         Install templates in home folder
+      -f, --force           Will override existing files. Use with care.
 
-The ``-git`` option will initialize a git repository will the newly created module (if ``git`` is installed): ::
-    
-    # it will run these lines in the ModuleName folder
-    git init
-    git add .
-    git commit -m "Initial commit"
-    # it will also create a python-specific .gitignore file
 
-The ``-dev`` option will run the following command at the end to install the newly created module in *develop* mode (i.e. you can do your changes on the module without needing to reinstall the module each time to test it) ::
-    
-    sudo python setup.py develop
+
+Examples
+--------
+To create a new module, with CLI, unitests and git, juste type : ::
+
+     kickstart -t -c -g -n MyModulename
+
+I will generate the folowing layout : ::
+
+    find MyModulename | grep -v git
+     MyModulename
+     MyModulename/README.rst
+     MyModulename/setup.py
+     MyModulename/src
+     MyModulename/src/tests
+     MyModulename/src/tests/test_mymodulename.py
+     MyModulename/src/tests/__init__.py
+     MyModulename/src/mymodulename
+     MyModulename/src/mymodulename/mymodulename.py
+     MyModulename/src/mymodulename/__init__.py
+     MyModulename/src/bin
+     MyModulename/src/bin/mymodulename.py
+     MyModulename/src/bin/__init__.py
+     MyModulename/LICENCE.txt
+     MyModulename/MANIFEST.in
+ 
+You can then cd to you module folder and type : ::
+
+    # install it in dev mode
+    python setup.py develop    
+    # run unitests
+    python setup.py test
+
+By installing in dev mode, your module as automagically created the CLI entrypoint. You can then, in a terminal, type : ::
+
+    mymodulename
+
+Wich will run the file MyModulename/src/bin/mymodulename.py.
 
 Installation and customization
 --------------------------------
@@ -46,39 +97,36 @@ Installation and customization
 From the source
 ''''''''''''''''
 
-Get a zip of the code, for instance on Github_ . Unzip the code in some folder. You can the models of the files ``README.rst``, ``setup.py`` etc in subfolder ``picnic/files`` and change them as you like.
-Then use the following command in the folder where the ``setup.py`` is ::
+    git clone https://github.com/jcsaaddupuy/kickstart.py.git
 
-    sudo python picnic.py install
+    cd kickstart 
 
-Or even better, use this command instead, it will enable you to change the models of the files even after the installation: :: 
-
-    sudo python picnic.py develop
+    sudo python setup.py install
 
 
-With pip (not recommended)
-'''''''''''''''''''''''''''
+With pip
+''''''''
 
-Type this in a terminal ::
+Just pip install it : ::
 
-    sudo pip install picnic
-
-The problem with this installation is that you cannot customize the templates.
-
-Test
-'''''
-
-To test if it works go to any folder and type ::
-    
-    picnic.py TestModule
+    sudo pip install kickstart
 
 
+Customization
+''''''''''''''
+
+If you want to pimp the templates, you can install them locall in your home foler : ::
+
+    kickstart -i
+
+All templates will be copied to ~/.kickstart/files/, wich you can edit freely to override defaults.
 
 Contribute
 -----------
 
-Picnic is an open source software originally written by Zulko_ and released under the MIT licence. Please help make picnic better, for instance by expanding the capabilities, providing advice for sounder standards if you are an experienced module-maker, reporting bugs, etc. We love forks and pull resquests !
-Picnic is being developped on Github_, that's where you should go for troubleshooting and bug reports.
+Kickstart is an open source software originally written by Zulko_ and released under the MIT licence. Please help make kickstart or picnic betters, for instance by expanding the capabilities, providing advice for sounder standards if you are an experienced module-maker, reporting bugs, etc. We love forks and pull resquests !
+Kickstart is being developped on Github_, that's where you should go for troubleshooting and bug reports.
 
 .. _Zulko : https://github.com/Zulko
-.. _Github :  https://github.com/Zulko/picnic.py
+.. _Github :  https://github.com/jcsaaddupuy/kickstart.py.git
+.. _Picnic :  https://github.com/Zulko/picnic.py
