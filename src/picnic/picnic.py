@@ -177,7 +177,7 @@ class Picnic(object):
 
 
     def create_module(self):
-        """ Class entry point """
+        """ Create differents module layouts """
         if os.path.exists(self.pkg_dest_folder) and not self.options.force:
             self.logger.warn("%s already exists. use -f to overwrite.", self.pkg_dest_folder)
         else:
