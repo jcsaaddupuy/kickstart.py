@@ -87,7 +87,7 @@ You can then cd to you module folder and type : ::
 
 By installing in dev mode, your module as automagically created the CLI entrypoint. You can then, in a terminal, type : ::
 
-    MyModulename
+    mymodulename
 
 Wich will run the file MyModulename/src/bin/mymodulename.py.
 
