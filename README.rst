@@ -1,7 +1,7 @@
-Kickstart
+Pyckstart
 =========
 
-Kickstart is a simple template engine for writing python modules, based on Jinja2.
+Pyckstart is a simple template engine for writing python modules, based on Jinja2.
 
 It can generate bases layout for simple python modules, with or without CLI, unitests, and git local repo initialization.
 
@@ -9,7 +9,7 @@ It is a fork of Picnic_ by Zulko_.
 
 You open a console and in any folder you type ::
     
-    kickstart -n ModuleName
+    pyckstart -n ModuleName
 
 and it will produce the following folder, with (almost ?) all the files you need. All there is left to do is write the actual code : ::
 
@@ -32,7 +32,7 @@ You can then cd to you module folder and type : ::
 
 Options
 --------
-    Usage: kickstart -n module_name [options]
+    Usage: pyckstart -n module_name [options]
 
     Options:
       -h, --help            show this help message and exit
@@ -57,7 +57,7 @@ Examples
 --------
 To create a new module, with CLI, unitests and git, juste type : ::
 
-     kickstart -t -c -g -n MyModulename
+     pyckstart -t -c -g -n MyModulename
 
 I will generate the folowing layout : ::
 
@@ -97,9 +97,9 @@ Installation and customization
 From the source
 ''''''''''''''''
 
-    git clone https://github.com/jcsaaddupuy/kickstart.py.git
+    git clone https://github.com/jcsaaddupuy/pyckstart.git
 
-    cd kickstart 
+    cd pyckstart 
 
     sudo python setup.py install
 
@@ -111,16 +111,16 @@ Customization
 
 If you want to pimp the templates, you can install them locall in your home foler : ::
 
-    kickstart -i
+    pyckstart -i
 
-All templates will be copied to ~/.kickstart/files/, wich you can edit freely to override defaults.
+All templates will be copied to ~/.pyckstart/files/, wich you can edit freely to override defaults.
 
 Contribute
 -----------
 
-Kickstart is an open source software originally written by Zulko_ and released under the MIT licence. Please help make kickstart or picnic betters, for instance by expanding the capabilities, providing advice for sounder standards if you are an experienced module-maker, reporting bugs, etc. We love forks and pull resquests !
-Kickstart is being developped on Github_, that's where you should go for troubleshooting and bug reports.
+Pyckstart is an open source software originally written by Zulko_ and released under the MIT licence. Please help make Pyckstart or Picnic betters, for instance by expanding the capabilities, providing advice for sounder standards if you are an experienced module-maker, reporting bugs, etc. We love forks and pull resquests !
+Pyckstart is being developped on Github_, that's where you should go for troubleshooting and bug reports.
 
 .. _Zulko : https://github.com/Zulko
-.. _Github :  https://github.com/jcsaaddupuy/kickstart.py.git
+.. _Github :  https://github.com/jcsaaddupuy/pyckstart.py.git
 .. _Picnic :  https://github.com/Zulko/picnic.py
