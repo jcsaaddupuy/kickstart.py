@@ -104,12 +104,6 @@ From the source
     sudo python setup.py install
 
 
-With pip
-''''''''
-
-Just pip install it : ::
-
-    sudo pip install kickstart
 
 
 Customization
